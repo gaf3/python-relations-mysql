@@ -45,7 +45,7 @@ class COLUMN(relations_mysql.DDL, relations_sql.COLUMN):
         if "__" in self.migration["store"]:
 
             name, path = self.COLUMN_NAME.split(self.migration["store"])
-            sql.append(self.EXTRACT % (self.PATH % (self.quote(name), self.COLUMN_NAME.walk(path))))
+            sql.append(self.EXTRACT % (self.PATH % (self.quote(name), self.str(self.COLUMN_NAME.walk(path)))))
 
         else:
 
@@ -82,7 +82,7 @@ class COLUMN(relations_mysql.DDL, relations_sql.COLUMN):
         if "__" in store:
 
             name, path = self.COLUMN_NAME.split(store)
-            sql.append(self.EXTRACT % (self.PATH % (self.quote(name), self.COLUMN_NAME.walk(path))))
+            sql.append(self.EXTRACT % (self.PATH % (self.quote(name), self.str(self.COLUMN_NAME.walk(path)))))
 
         else:
 

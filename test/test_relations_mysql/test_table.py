@@ -40,7 +40,7 @@ class TestTABLE(unittest.TestCase):
   `people` JSON NOT NULL,
   `stuff` JSON NOT NULL,
   `things` JSON NOT NULL,
-  `things__for__0____1` VARCHAR(255) AS (`things`->>$.for[0]."1"),
+  `things__for__0____1` VARCHAR(255) AS (`things`->>'$.for[0]."1"'),
   PRIMARY KEY (`id`),
   INDEX `spend` (`spend`),
   UNIQUE `name` (`name`)
@@ -112,14 +112,14 @@ class TestTABLE(unittest.TestCase):
         ddl.generate()
         self.assertEqual(ddl.sql,
             """ALTER TABLE `simple` ADD `things` JSON NOT NULL,"""
-            """ADD `things__for__0____1` VARCHAR(255) AS (`things`->>$.for[0]."1");\n"""
+            """ADD `things__for__0____1` VARCHAR(255) AS (`things`->>'$.for[0]."1"');\n"""
         )
         self.assertEqual(ddl.args, [])
 
         ddl.generate(indent=2)
         self.assertEqual(ddl.sql, """ALTER TABLE `simple`
   ADD `things` JSON NOT NULL,
-  ADD `things__for__0____1` VARCHAR(255) AS (`things`->>$.for[0]."1");
+  ADD `things__for__0____1` VARCHAR(255) AS (`things`->>'$.for[0]."1"');
 """)
         self.assertEqual(ddl.args, [])
 
@@ -151,7 +151,7 @@ class TestTABLE(unittest.TestCase):
             """ALTER TABLE `yep` """
             """CHANGE `spend` `spend` DOUBLE DEFAULT 1.25,"""
             """CHANGE `things` `thingies` JSON NOT NULL,"""
-            """CHANGE `things__for__0____1` `thingies__for__0____1` VARCHAR(255) AS (`thingies`->>$.for[0]."1");\n"""
+            """CHANGE `things__for__0____1` `thingies__for__0____1` VARCHAR(255) AS (`thingies`->>'$.for[0]."1"');\n"""
         )
         self.assertEqual(ddl.args, [])
 
@@ -182,7 +182,7 @@ class TestTABLE(unittest.TestCase):
         self.assertEqual(ddl.sql, """ALTER TABLE `yep`
   CHANGE `spend` `spend` DOUBLE DEFAULT 1.25,
   CHANGE `things` `thingies` JSON NOT NULL,
-  CHANGE `things__for__0____1` `thingies__for__0____1` VARCHAR(255) AS (`thingies`->>$.for[0]."1");
+  CHANGE `things__for__0____1` `thingies__for__0____1` VARCHAR(255) AS (`thingies`->>'$.for[0]."1"');
 """)
         self.assertEqual(ddl.args, [])
 

@@ -62,7 +62,7 @@ class TestCOLUMN(unittest.TestCase):
         ddl = COLUMN(store="data__a__0___1____2_____3", kind="str")
 
         ddl.generate()
-        self.assertEqual(ddl.sql, """`data__a__0___1____2_____3` VARCHAR(255) AS (`data`->>$.a[0][-1]."2"."-3")""")
+        self.assertEqual(ddl.sql, """`data__a__0___1____2_____3` VARCHAR(255) AS (`data`->>'$.a[0][-1]."2"."-3"')""")
         self.assertEqual(ddl.args, [])
 
         field = relations.Field(bool, name="flag")
@@ -103,7 +103,7 @@ class TestCOLUMN(unittest.TestCase):
         ddl = COLUMN(store="data__a__0___1____2_____3", kind="str", added=True)
 
         ddl.generate()
-        self.assertEqual(ddl.sql, """ADD `data__a__0___1____2_____3` VARCHAR(255) AS (`data`->>$.a[0][-1]."2"."-3")""")
+        self.assertEqual(ddl.sql, """ADD `data__a__0___1____2_____3` VARCHAR(255) AS (`data`->>'$.a[0][-1]."2"."-3"')""")
         self.assertEqual(ddl.args, [])
 
         field = relations.Field(int, store="id", default=1, none=False)
