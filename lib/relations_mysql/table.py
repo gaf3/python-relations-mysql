@@ -20,7 +20,7 @@ class TABLE(relations_mysql.DDL, relations_sql.TABLE):
 
     INDEXES = True
 
-    RENAME = "RENAME TABLE %s TO %s"
+    STORE = "RENAME TABLE %s TO %s"
 
     def create(self, indent=0, count=0, pad=' ', **kwargs): # pylint: disable=too-many-locals
         """
@@ -73,11 +73,11 @@ class TABLE(relations_mysql.DDL, relations_sql.TABLE):
         Change the schema
         """
 
-        sql.append(self.RENAME % (self.name(definition=True), self.name()))
+        sql.append(self.STORE % (self.name(definition=True), self.name()))
 
-    def rename(self, sql):
+    def store(self, sql):
         """
-        Change the schema
+        Change the store
         """
 
         if "schema" not in self.migration:

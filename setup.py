@@ -18,7 +18,5 @@ setup(
         'relations_mysql.index',
         'relations_mysql.table'
     ],
-    install_requires=[
-        'PyMySQL==0.10.0'
-    ]
+    install_requires=[]
 )

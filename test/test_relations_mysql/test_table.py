@@ -65,7 +65,7 @@ class TestTABLE(unittest.TestCase):
         ddl.schema(sql)
         self.assertEqual(sql, ["""RENAME TABLE `scheming`.`evil` TO `dreaming`.`good`"""])
 
-    def test_rename(self):
+    def test_store(self):
 
         sql = []
 
@@ -79,7 +79,7 @@ class TestTABLE(unittest.TestCase):
             }
         )
 
-        ddl.rename(sql)
+        ddl.store(sql)
         self.assertEqual(sql, ["""RENAME TABLE `scheming`.`evil` TO `good`"""])
 
     def test_modify(self):
