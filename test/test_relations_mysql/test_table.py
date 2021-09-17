@@ -10,7 +10,7 @@ class Simple(relations.Model):
     name = str
 
 class Meta(relations.Model):
-    id = int
+    id = int, {"auto": True}
     name = str
     flag = bool
     spend = float
@@ -25,6 +25,27 @@ class Meta(relations.Model):
 class TestTABLE(unittest.TestCase):
 
     maxDiff = None
+
+    def test_create(self):
+
+        ddl = TABLE(**Meta.thy().define())
+        ddl.args = []
+
+        ddl.create(indent=2)
+        self.assertEqual(ddl.sql, """CREATE TABLE IF NOT EXISTS `meta` (
+  `id` BIGINT AUTO_INCREMENT,
+  `name` VARCHAR(255) NOT NULL,
+  `flag` TINYINT,
+  `spend` DOUBLE,
+  `people` JSON NOT NULL,
+  `stuff` JSON NOT NULL,
+  `things` JSON NOT NULL,
+  `things_for__0____1` VARCHAR(255) AS (`things_for`->>$[0]."1"),
+  PRIMARY KEY (`id`),
+  INDEX `spend` (`spend`),
+  UNIQUE `name` (`name`)
+);
+""")
 
     def test_schema(self):
 
@@ -254,5 +275,5 @@ class TestTABLE(unittest.TestCase):
         )
 
         ddl.generate()
-        self.assertEqual(ddl.sql, """DROP TABLE `yep`;\n""")
+        self.assertEqual(ddl.sql, """DROP TABLE IF EXISTS `yep`;\n""")
         self.assertEqual(ddl.args, [])
