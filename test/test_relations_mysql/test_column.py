@@ -31,6 +31,13 @@ class TestCOLUMN(unittest.TestCase):
         self.assertEqual(ddl.sql, "`id` BIGINT")
         self.assertEqual(ddl.args, [])
 
+        field = relations.Field(int, name="id", auto=True)
+        ddl = COLUMN(field.define())
+
+        ddl.generate()
+        self.assertEqual(ddl.sql, "`id` BIGINT AUTO_INCREMENT")
+        self.assertEqual(ddl.args, [])
+
         field = relations.Field(float, "price", store="_price", default=1.25, none=False)
         ddl = COLUMN(field.define())
 
