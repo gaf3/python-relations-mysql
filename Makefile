@@ -32,8 +32,9 @@ lint:
 setup:
 	docker run $(TTY) $(VOLUMES) $(INSTALL) sh -c "cp -r /opt/service /opt/install && cd /opt/install/ && \
 	apk update && apk add git && \
-	pip install git+https://github.com/gaf3/python-relations.git@0.6.0#egg=relations && \
-	pip install git+https://github.com/gaf3/python-relations-sql.git@0.5.3#egg=relations-sql && \
+	pip install git+https://github.com/gaf3/python-relations.git@8b5c841#egg=relations && \
+	pip install git+https://github.com/gaf3/python-relations-sql.git@705a7e0#egg=relations-sql && \
+	python setup.py install && \
 	python -m relations_mysql.sql && \
 	python -m relations_mysql.expression && \
 	python -m relations_mysql.criterion && \
