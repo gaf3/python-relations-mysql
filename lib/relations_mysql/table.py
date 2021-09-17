@@ -39,7 +39,7 @@ class TABLE(relations_mysql.DDL, relations_sql.TABLE):
             if "extract" in migration:
                 for extract in sorted(migration["extract"]):
                     store = migration.get("store", migration["name"])
-                    columns.append(self.COLUMN(store=f"{store}_{extract}", kind=migration["extract"][extract]))
+                    columns.append(self.COLUMN(store=f"{store}__{extract}", kind=migration["extract"][extract]))
 
         table = {} if self.INDEXES else {"table": self.migration["name"], "schema": self.migration.get("schema")}
 
