@@ -1,5 +1,5 @@
 git+https://github.com/gaf3/python-relations.git@8b5c841#egg=relations
-git+https://github.com/gaf3/python-relations-sql.git@bae3ec0#egg=relations-sql
+git+https://github.com/gaf3/python-relations-sql.git@716ff4f#egg=relations-sql
 ptvsd==4.3.2
 coverage==5.2.1
 pylint==2.5.3

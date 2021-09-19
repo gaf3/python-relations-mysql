@@ -52,7 +52,7 @@ class TestSELECT(unittest.TestCase):
             "AS `people` WHERE `stuff` IN "
             "(SELECT `f` FROM `g` WHERE `things`->>%s>CAST(%s AS JSON)) "
             "GROUP BY `fee`,`fie` HAVING `foe`=%s "
-            "ORDER BY `yin`,`yang` DESC LIMIT %s,%s"
+            "ORDER BY `yin`,`yang` DESC LIMIT %s OFFSET %s"
         )
         self.assertEqual(query.args, ['$.a[0][-1]."2"."-3"', '5', 'fum', 1, 2])
 
@@ -87,9 +87,7 @@ HAVING
 ORDER BY
   `yin`,
   `yang` DESC
-LIMIT
-  %s,
-  %s""")
+LIMIT %s OFFSET %s""")
 
         query.generate(indent=2, count=1)
         self.assertEqual(query.sql,"""SELECT
@@ -121,9 +119,7 @@ LIMIT
   ORDER BY
     `yin`,
     `yang` DESC
-  LIMIT
-    %s,
-    %s""")
+  LIMIT %s OFFSET %s""")
 
         query.generate(indent=2, count=2)
         self.assertEqual(query.sql,"""SELECT
@@ -155,9 +151,7 @@ LIMIT
     ORDER BY
       `yin`,
       `yang` DESC
-    LIMIT
-      %s,
-      %s""")
+    LIMIT %s OFFSET %s""")
 
 
 class TestINSERT(unittest.TestCase):
@@ -290,8 +284,7 @@ WHERE
 ORDER BY
   `yin`,
   `yang` DESC
-LIMIT
-  %s""")
+LIMIT %s""")
 
         query.generate(indent=2, count=1)
         self.assertEqual(query.sql,"""UPDATE
@@ -304,8 +297,7 @@ LIMIT
   ORDER BY
     `yin`,
     `yang` DESC
-  LIMIT
-    %s""")
+  LIMIT %s""")
 
         query.generate(indent=2, count=2)
         self.assertEqual(query.sql,"""UPDATE
@@ -318,8 +310,7 @@ LIMIT
     ORDER BY
       `yin`,
       `yang` DESC
-    LIMIT
-      %s""")
+    LIMIT %s""")
 
         query.LIMIT(10)
 
@@ -349,8 +340,7 @@ WHERE
 ORDER BY
   `yin`,
   `yang` DESC
-LIMIT
-  %s""")
+LIMIT %s""")
 
         query.generate(indent=2, count=1)
         self.assertEqual(query.sql,"""DELETE
@@ -362,8 +352,7 @@ LIMIT
   ORDER BY
     `yin`,
     `yang` DESC
-  LIMIT
-    %s""")
+  LIMIT %s""")
 
         query.generate(indent=2, count=2)
         self.assertEqual(query.sql,"""DELETE
@@ -375,8 +364,7 @@ LIMIT
     ORDER BY
       `yin`,
       `yang` DESC
-    LIMIT
-      %s""")
+    LIMIT %s""")
 
         query.LIMIT(10)
 
