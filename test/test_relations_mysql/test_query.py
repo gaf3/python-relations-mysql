@@ -40,9 +40,9 @@ class TestSELECT(unittest.TestCase):
         self.assertEqual(query.sql,
             "SELECT FAST * FROM (SELECT `a`.`b`.`c` FROM `d`.`e`) "
             "AS `people` WHERE `stuff` IN "
-            "(SELECT `f` FROM `g` WHERE `things`->>%s>CAST(%s AS JSON))"
+            "(SELECT `f` FROM `g` WHERE `things`->>%s>%s)"
         )
-        self.assertEqual(query.args, ['$.a[0][-1]."2"."-3"', '5'])
+        self.assertEqual(query.args, ['$.a[0][-1]."2"."-3"', 5])
 
         query.GROUP_BY("fee", "fie").HAVING(foe="fum").ORDER_BY("yin", yang=DESC).LIMIT(1, 2)
 
@@ -50,11 +50,11 @@ class TestSELECT(unittest.TestCase):
         self.assertEqual(query.sql,
             "SELECT FAST * FROM (SELECT `a`.`b`.`c` FROM `d`.`e`) "
             "AS `people` WHERE `stuff` IN "
-            "(SELECT `f` FROM `g` WHERE `things`->>%s>CAST(%s AS JSON)) "
+            "(SELECT `f` FROM `g` WHERE `things`->>%s>%s) "
             "GROUP BY `fee`,`fie` HAVING `foe`=%s "
             "ORDER BY `yin`,`yang` DESC LIMIT %s OFFSET %s"
         )
-        self.assertEqual(query.args, ['$.a[0][-1]."2"."-3"', '5', 'fum', 1, 2])
+        self.assertEqual(query.args, ['$.a[0][-1]."2"."-3"', 5, 'fum', 1, 2])
 
         query.WHERE(more="stuff").HAVING(more="things")
         query.generate(indent=2)
@@ -75,7 +75,7 @@ WHERE
     FROM
       `g`
     WHERE
-      `things`->>%s>CAST(%s AS JSON)
+      `things`->>%s>%s
   ) AND
   `more`=%s
 GROUP BY
@@ -107,7 +107,7 @@ LIMIT %s OFFSET %s""")
       FROM
         `g`
       WHERE
-        `things`->>%s>CAST(%s AS JSON)
+        `things`->>%s>%s
     ) AND
     `more`=%s
   GROUP BY
@@ -139,7 +139,7 @@ LIMIT %s OFFSET %s""")
         FROM
           `g`
         WHERE
-          `things`->>%s>CAST(%s AS JSON)
+          `things`->>%s>%s
       ) AND
       `more`=%s
     GROUP BY
