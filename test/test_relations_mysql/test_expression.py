@@ -10,6 +10,11 @@ class TestVALUE(unittest.TestCase):
 
     def test_generate(self):
 
+        expression = VALUE(None)
+        expression.generate()
+        self.assertEqual(expression.sql, """%s""")
+        self.assertEqual(expression.args, [None])
+
         expression = VALUE("unit")
         expression.generate()
         self.assertEqual(expression.sql, """%s""")
@@ -25,6 +30,10 @@ class TestVALUE(unittest.TestCase):
         self.assertEqual(expression.sql, """CAST(%s AS JSON)""")
         self.assertEqual(expression.args, ['{"a": 1}'])
 
+        expression = VALUE({'a', 'b'})
+        expression.generate()
+        self.assertEqual(expression.sql, """CAST(%s AS JSON)""")
+        self.assertEqual(expression.args, ['["a", "b"]'])
 
 class TestNOT(unittest.TestCase):
 
