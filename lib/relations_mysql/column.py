@@ -24,7 +24,8 @@ class COLUMN(relations_mysql.DDL, relations_sql.COLUMN):
 
     COLUMN_NAME = relations_mysql.COLUMN_NAME
 
-    EXTRACT = "AS (%s)"
+    AUTO = """AUTO_INCREMENT"""
+    EXTRACT = """AS (%s)"""
 
     def __init__(self, migration=None, definition=None, added=False, **kwargs):
 
@@ -32,38 +33,6 @@ class COLUMN(relations_mysql.DDL, relations_sql.COLUMN):
 
         if self.migration and self.migration.get("kind") == "bool" and "default" in self.migration:
             self.migration["default"] = int(self.migration["default"])
-
-    def create(self, **kwargs):
-        """
-        CREATE DLL
-        """
-
-        sql = [self.name()]
-
-        sql.append(self.KINDS.get(self.migration['kind'], self.KINDS["json"]))
-
-        if "__" in self.migration["store"]:
-
-            name, path = self.COLUMN_NAME.split(self.migration["store"])
-            sql.append(self.EXTRACT % (self.PATH % (self.quote(name), self.str(self.COLUMN_NAME.walk(path)))))
-
-        else:
-
-            if not self.migration.get('none'):
-                sql.append("NOT NULL")
-
-            if self.migration.get('auto'):
-                sql.append("AUTO_INCREMENT")
-
-            if self.migration.get('default') is not None:
-                if isinstance(self.migration.get('default'), (bool, int, float, str)):
-                    default = self.migration.get('default')
-                else:
-                    default = json.dumps(self.migration.get('default'))
-                quote = self.STR if isinstance(default, str) else ''
-                sql.append(f"DEFAULT {quote}{default}{quote}")
-
-        self.sql = " ".join(sql)
 
     def modify(self, **kwargs): # pylint: disable=arguments-differ
         """

@@ -126,8 +126,6 @@ class TestCOLUMN(unittest.TestCase):
         }
         ddl = COLUMN(field.define(), definition)
 
-        print(field.define())
-
         ddl.generate()
         self.assertEqual(ddl.sql, """CHANGE `data` `data` JSON NOT NULL DEFAULT '{"a": 1}'""")
         self.assertEqual(ddl.args, [])
