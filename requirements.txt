@@ -1,5 +1,5 @@
 git+https://github.com/gaf3/python-relations.git@5a19bb2#egg=relations
-git+https://github.com/gaf3/python-relations-sql.git@c95af08#egg=relations-sql
+git+https://github.com/gaf3/python-relations-sql.git@c817e4e#egg=relations-sql
 PyMySQL==0.10.0
 ptvsd==4.3.2
 coverage==5.2.1

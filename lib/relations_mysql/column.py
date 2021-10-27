@@ -24,7 +24,7 @@ class COLUMN(relations_mysql.DDL, relations_sql.COLUMN):
 
     COLUMN_NAME = relations_mysql.COLUMN_NAME
 
-    AUTO = """AUTO_INCREMENT"""
+    AUTO = """BIGINT AUTO_INCREMENT"""
     EXTRACT = """AS (%s)"""
 
     def __init__(self, migration=None, definition=None, added=False, **kwargs):
