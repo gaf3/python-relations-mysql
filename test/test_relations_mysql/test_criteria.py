@@ -142,8 +142,8 @@ class TestOP(unittest.TestCase):
         criteria = OP(totes__a__has=1, EXTRACTED=True)
 
         criteria.generate()
-        self.assertEqual(criteria.sql, """JSON_CONTAINS(`totes__a`,%s)""")
-        self.assertEqual(criteria.args, [1])
+        self.assertEqual(criteria.sql, """JSON_CONTAINS(`totes__a`,CAST(%s AS JSON))""")
+        self.assertEqual(criteria.args, ["[1]"])
 
         criteria = OP(totes__a__any=[1, 2], EXTRACTED=True)
 
