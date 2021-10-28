@@ -6,35 +6,33 @@ import relations_sql
 import relations_mysql
 
 
-class CRITERIA(relations_mysql.SQL, relations_sql.CRITERIA):
+class CRITERIA(relations_mysql.SQL):
     """
     Collection of CRITERIONS
     """
 
+    ARGS = relations_mysql.VALUE
 
-class AND(relations_mysql.SQL, relations_sql.AND):
+
+class AND(CRITERIA, relations_sql.AND):
     """
     CLAUSE for AND
     """
 
-    ARGS = relations_mysql.VALUE
 
-
-class OR(relations_mysql.SQL, relations_sql.OR):
+class OR(CRITERIA, relations_sql.OR):
     """
     CLAUSE for OR
     """
 
-    ARGS = relations_mysql.VALUE
 
-
-class SETS(relations_mysql.SQL, relations_sql.SETS):
+class SETS(relations_mysql.SQL):
     """
     For comparing sets with each other
     """
 
 
-class HAS(relations_mysql.SQL, relations_sql.HAS):
+class HAS(SETS, relations_sql.HAS):
     """
     For if the left has all the members of right
     """
@@ -42,7 +40,7 @@ class HAS(relations_mysql.SQL, relations_sql.HAS):
     CONTAINS = relations_mysql.CONTAINS
 
 
-class ANY(relations_mysql.SQL, relations_sql.ANY):
+class ANY(SETS, relations_sql.ANY):
     """
     For if the left has any the members of right
     """
@@ -53,7 +51,7 @@ class ANY(relations_mysql.SQL, relations_sql.ANY):
     CONTAINS = relations_mysql.CONTAINS
 
 
-class ALL(relations_mysql.SQL, relations_sql.ALL):
+class ALL(SETS, relations_sql.ALL):
     """
     For if the left and right have the same members
     """
@@ -63,7 +61,7 @@ class ALL(relations_mysql.SQL, relations_sql.ALL):
     LENGTHS = relations_mysql.LENGTHS
 
 
-class OP(relations_mysql.SQL, relations_sql.OP): # pylint: disable=too-few-public-methods
+class OP(SETS, relations_sql.OP): # pylint: disable=too-few-public-methods
     """
     Determines the criterion based on operand
     """

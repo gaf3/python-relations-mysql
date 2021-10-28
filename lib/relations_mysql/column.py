@@ -43,20 +43,26 @@ class COLUMN(relations_mysql.DDL, relations_sql.COLUMN):
 
         kind = self.migration.get("kind", self.definition["kind"])
         store = self.migration.get("store", self.definition["store"])
+        auto = self.migration.get("auto", self.definition.get("auto"))
         none = self.migration.get("none", self.definition.get("none"))
         default = self.migration.get("default", self.definition.get("default"))
 
-        sql.append(self.KINDS.get(kind, self.KINDS["json"]))
-
         if "__" in store:
 
-            name, path = self.COLUMN_NAME.split(store)
-            sql.append(self.EXTRACT % (self.PATH % (self.quote(name), self.str(self.COLUMN_NAME.walk(path)))))
+            self.extract(kind, sql, **kwargs)
 
         else:
 
-            if not none:
-                sql.append("NOT NULL")
+            if auto:
+
+                sql.append(self.AUTO)
+
+            else:
+
+                sql.append(self.KINDS.get(kind, self.KINDS["json"]))
+
+                if not none:
+                    sql.append("NOT NULL")
 
             if default is not None:
                 if not isinstance(default, (bool, int, float, str)):

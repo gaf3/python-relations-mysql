@@ -106,6 +106,17 @@ class TestCOLUMN(unittest.TestCase):
         self.assertEqual(ddl.sql, """ADD `data__a__0___1____2_____3` VARCHAR(255) AS (`data`->>'$.a[0][-1]."2"."-3"')""")
         self.assertEqual(ddl.args, [])
 
+        field = relations.Field(int, store="id", auto=True)
+        definition = {
+            "store": "_id",
+            "kind": "float"
+        }
+        ddl = COLUMN(field.define(), definition)
+
+        ddl.generate()
+        self.assertEqual(ddl.sql, """CHANGE `_id` `id` BIGINT AUTO_INCREMENT""")
+        self.assertEqual(ddl.args, [])
+
         field = relations.Field(int, store="id", default=1, none=False)
         definition = {
             "store": "_id",
