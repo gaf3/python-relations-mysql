@@ -63,24 +63,6 @@ class COLUMN_NAME(relations_mysql.SQL, relations_sql.COLUMN_NAME):
 
     TABLE_NAME = TABLE_NAME
 
-    @staticmethod
-    def walk(path):
-        """
-        Translates a path array to JSON access
-        """
-
-        places = []
-
-        for place in path:
-            if isinstance(place, int):
-                places.append(f"[{place}]")
-            elif place[0] in "-1234567890":
-                places.append(f'."{place}"')
-            else:
-                places.append(f'.{place}')
-
-        return f"${''.join(places)}"
-
 
 class NAMES(relations_mysql.SQL, relations_sql.NAMES):
     """
