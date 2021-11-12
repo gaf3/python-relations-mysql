@@ -157,6 +157,4 @@ class TestOP(unittest.TestCase):
         self.assertEqual(criteria.sql, """(JSON_CONTAINS(`totes__a`,CAST(%s AS JSON)) AND JSON_LENGTH(`totes__a`)=JSON_LENGTH(CAST(%s AS JSON)))""")
         self.assertEqual(criteria.args, ['[1, 2]', '[1, 2]'])
 
-
-
         self.assertRaisesRegex(relations_sql.SQLError, "need single pair", OP, "nope")
