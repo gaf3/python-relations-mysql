@@ -91,7 +91,7 @@ class TestPyMySQL(unittest.TestCase):
             else:
                 name = cursor.fetchone()["name"]
 
-            self.assertEqual(name, value)
+            self.assertEqual(name, value, query.sql)
 
         check("yep", flag=True)
 
@@ -113,7 +113,7 @@ class TestPyMySQL(unittest.TestCase):
 
         check(None, things__a__b__0__gt=1)
 
-        check(None, things__a__c__notlike="su")
+        check(None, things__a__c__not_like="su")
 
         check(None, things__a__d__null=False)
 
@@ -122,6 +122,10 @@ class TestPyMySQL(unittest.TestCase):
         check("dive", things__a__b__has=1)
 
         check(None, things__a__b__has=[1, 3])
+
+        check("dive", things__a__b__not_has=[1, 3], things__a__b__null=False)
+
+        check(None, name="yep", things__a__b__not_has=[1, 3])
 
         check("dive", things__a__b__any=[1, 3])
 
