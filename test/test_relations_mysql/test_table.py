@@ -80,7 +80,7 @@ class TestTABLE(unittest.TestCase):
         )
 
         ddl.store(sql)
-        self.assertEqual(sql, ["""RENAME TABLE `scheming`.`evil` TO `good`"""])
+        self.assertEqual(sql, ["""RENAME TABLE `scheming`.`evil` TO `scheming`.`good`"""])
 
     def test_modify(self):
 
@@ -254,14 +254,14 @@ class TestTABLE(unittest.TestCase):
         )
 
         ddl.generate()
-        self.assertEqual(ddl.sql, """ALTER TABLE `yep` CREATE INDEX `flag` (`flag`),DROP INDEX `price`,CREATE UNIQUE `flag` (`flag`),DROP INDEX `name`;\n""")
+        self.assertEqual(ddl.sql, """ALTER TABLE `yep` ADD INDEX `flag` (`flag`),DROP INDEX `price`,ADD UNIQUE `flag` (`flag`),DROP INDEX `name`;\n""")
         self.assertEqual(ddl.args, [])
 
         ddl.generate(indent=2)
         self.assertEqual(ddl.sql, """ALTER TABLE `yep`
-  CREATE INDEX `flag` (`flag`),
+  ADD INDEX `flag` (`flag`),
   DROP INDEX `price`,
-  CREATE UNIQUE `flag` (`flag`),
+  ADD UNIQUE `flag` (`flag`),
   DROP INDEX `name`;
 """)
         self.assertEqual(ddl.args, [])
