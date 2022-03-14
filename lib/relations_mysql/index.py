@@ -19,6 +19,24 @@ class INDEX(relations_mysql.DDL, relations_sql.INDEX):
     CREATE = "INDEX"
     MODIFY = "RENAME INDEX %s TO %s"
 
+    def create(self, **kwargs):
+        """
+        CREATE DLL
+        """
+
+        sql = []
+
+        if "table" in self.migration:
+            sql.append("ADD")
+
+        sql.append(self.CREATE)
+        sql.append(self.name(full=False))
+
+        columns = self.COLUMNS(self.migration["columns"])
+        columns.generate()
+        sql.append(columns.sql)
+
+        self.sql = " ".join(sql)
 
 class UNIQUE(INDEX):
     """
