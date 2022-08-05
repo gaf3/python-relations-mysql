@@ -1,4 +1,4 @@
-# python-relations-mysql
+# relations-mysql
 
 Module for interacting with Relations and MySQL. It generates MySQL compatible SQL from SQL like classes in Python.
 
