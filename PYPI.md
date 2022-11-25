@@ -2,7 +2,7 @@
 
 Module for interacting with Relations and MySQL. It generates MySQL compatible SQL from SQL like classes in Python.
 
-This is SQL library used by relations-pymysql, but folks may find it useful. So here's some of the main unittests so you get the general idea.
+This is the SQL library used by relations-pymysql, but folks may find it useful. So here's some of the main unittests so you get the general idea.
 
 # import
 
