@@ -47,7 +47,7 @@ class COLUMN(relations_mysql.DDL, relations_sql.COLUMN):
         none = self.migration.get("none", self.definition.get("none"))
         default = self.migration.get("default", self.definition.get("default"))
 
-        if "__" in store:
+        if store and "__" in store:
 
             self.extract(kind, sql, **kwargs)
 

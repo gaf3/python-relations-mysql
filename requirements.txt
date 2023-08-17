@@ -1,5 +1,5 @@
-relations-sql==0.6.7
-relations-dil==0.6.12
+relations-sql @ git+https://github.com/relations-dil/python-relations-sql@e953c4116f043e988ce997e43e23093075dbfecb
+relations-dil @ git+https://github.com/relations-dil/python-relations@11260bd23ad953100ebce9f7066ada2cb29be448
 PyMySQL==0.10.0
 ptvsd==4.3.2
 coverage==5.2.1
