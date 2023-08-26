@@ -1,4 +1,4 @@
-relations-sql @ git+https://github.com/relations-dil/python-relations-sql@e953c4116f043e988ce997e43e23093075dbfecb
+relations-sql @ git+https://github.com/relations-dil/python-relations-sql@5bbd72bab4fd76ecbe8dcbe2ba2101e95f03f335
 relations-dil @ git+https://github.com/relations-dil/python-relations@11260bd23ad953100ebce9f7066ada2cb29be448
 PyMySQL==0.10.0
 ptvsd==4.3.2
