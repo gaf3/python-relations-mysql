@@ -23,7 +23,7 @@ setup(
         'relations_mysql.table'
     ],
     install_requires=[
-        'relations-sql>=0.6.4'
+        'relations-sql>=0.6.8'
     ],
     url="https://github.com/relations-dil/python-relations-mysql",
     author="Gaffer Fitch",
